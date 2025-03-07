@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="compte-rendu">Compte Rendu</h1>
+<p><strong>Nom</strong> : Fouad Id Gouahmane - Hugo Wendjaneh <br>
+<strong>Date</strong> : 16-02-2025 <br>
+<strong>Sujet</strong> : Developpement web <br>
+<strong>Contexte</strong> : Les bases de javascript</p>
+<h2 id="1-objectif">1. Objectif</h2>
+<p>L'objectif de ce TP est de se familiariser avec les bases de JavasScript en utilisant ou en reproduisant les fonctions natives de JavaScript.</p>
+<h2 id="2-exercices">2. Exercices</h2>
+<h3 id="exercice-1">Exercice 1</h3>
+<p>Créer une fonction qui permet de calculer la somme entre plusieurs nombres.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> sumV1 = <span class="hljs-function">(<span class="hljs-params">...arr</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (arr.length === <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"At least one number is expected"</span>);
+  <span class="hljs-keyword">return</span> arr.reduce(<span class="hljs-function">(<span class="hljs-params">acc, val</span>) =&gt;</span> acc + val, <span class="hljs-number">0</span>);
+};
+
+<span class="hljs-keyword">const</span> sumV2 = <span class="hljs-function">(<span class="hljs-params">...arr</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (arr.length === <span class="hljs-number">0</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"At least one number is expected"</span>);
+  <span class="hljs-keyword">let</span> result = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) {
+    result += arr[i];
+  }
+  <span class="hljs-keyword">return</span> result;
+};
+
+<span class="hljs-keyword">export</span> { sumV1 };
+</div></code></pre>
+<p>Dans cet exercice, plusieurs possibilités s'offrent à nous pour calculer la somme des nombres. Nous avons choisi d'utiliser la méthode <code>reduce</code>, permettant de réduire un tableau à une seule valeur, pour la première version. Une boucle <code>for</code> pour la deuxième version. Les <code>...</code> permettent de passer un nombre variable d'arguments à la fonction.</p>
+<h3 id="exercice-2">Exercice 2</h3>
+<p>Créer une fonction qui permet de filtrer un tableau en fonction d'une condition donnée, une fonction qui retourne <code>true</code> ou <code>false</code> pour chaque élément du tableau.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> filter = <span class="hljs-function">(<span class="hljs-params">arr, callback</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> result = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) {
+    <span class="hljs-keyword">if</span> (callback(arr[i])) {
+      result.push(arr[i]);
+    }
+  }
+  <span class="hljs-keyword">return</span> result;
+};
+
+<span class="hljs-keyword">const</span> filterV2 = <span class="hljs-function">(<span class="hljs-params">arr, callback</span>) =&gt;</span> arr.filter(callback);
+
+<span class="hljs-keyword">export</span> { filter };
+</div></code></pre>
+<p>Dans cet exercice, plusieurs possibilités s'offrent à nous pour filtrer un tableau. Nous avons choisi d'utiliser une boucle <code>for</code> pour la première version. La méthode <code>filter</code> pour la deuxième version. La méthode <code>filter</code> permet de filtrer un tableau en fonction d'une condition donnée, une fonction qui retourne <code>true</code> ou <code>false</code> pour chaque élément du tableau.</p>
+<h2 id="exercice-3">Exercice 3</h2>
+<p>Créer une fonction qui permet de mapper un tableau en appliquant une fonction donnée à chaque élément du tableau.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> map = <span class="hljs-function">(<span class="hljs-params">arr, fn</span>) =&gt;</span> {
+  <span class="hljs-keyword">const</span> result = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) {
+    result.push(fn(arr[i]));
+  }
+  <span class="hljs-keyword">return</span> result;
+};
+
+<span class="hljs-keyword">const</span> mapV2 = <span class="hljs-function">(<span class="hljs-params">arr, fn</span>) =&gt;</span> arr.map(fn);
+
+<span class="hljs-keyword">export</span> { map };
+</div></code></pre>
+<p>Dans cet exercice, plusieurs possibilités s'offrent à nous pour mapper un tableau. Nous avons choisi d'utiliser une boucle <code>for</code> pour la première version. La méthode <code>map</code> pour la deuxième version. La méthode <code>map</code> permet de mapper un tableau en appliquant une fonction donnée à chaque élément du tableau.</p>
+<h2 id="exercice-4-et-5">Exercice 4 et 5</h2>
+<p>Dans un premier temps, nous avons créé une route <code>/data.csv</code> du côté serveur qui renvoie un fichier CSV, en utilisant Express.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">"express"</span>);
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">"path"</span>);
+<span class="hljs-keyword">const</span> app = express();
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>;
+
+<span class="hljs-comment">// Chemin vers le fichier CSV</span>
+<span class="hljs-keyword">const</span> csvFilePath = path.join(__dirname, <span class="hljs-string">"./Data/data.csv"</span>);
+
+<span class="hljs-comment">// Route pour servir le fichier CSV</span>
+app.get(<span class="hljs-string">"/data.csv"</span>, (req, res) =&gt; {
+  res.sendFile(csvFilePath);
+});
+
+<span class="hljs-comment">// Démarrage du serveur</span>
+app.listen(port, () =&gt; {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Serveur démarré sur http://localhost:<span class="hljs-subst">${port}</span>`</span>);
+});
+</div></code></pre>
+<p>Ensuite, nous avons implémenté deux versions de la fonction de traitement des données CSV :</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">processDataV1</span>(<span class="hljs-params">csvText</span>) </span>{
+  <span class="hljs-keyword">const</span> result = [];
+  <span class="hljs-keyword">const</span> lines = csvText.trim().split(<span class="hljs-string">"\n"</span>);
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt; lines.length; i++) {
+    <span class="hljs-keyword">const</span> values = lines[i].split(<span class="hljs-string">","</span>);
+    <span class="hljs-keyword">const</span> obj = {
+      <span class="hljs-attr">username</span>: values[<span class="hljs-number">0</span>],
+      <span class="hljs-attr">realName</span>: values[<span class="hljs-number">1</span>],
+      <span class="hljs-attr">website</span>: values[<span class="hljs-number">2</span>] || <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">projectName</span>: values[<span class="hljs-number">3</span>],
+    };
+    result.push(obj);
+  }
+  <span class="hljs-keyword">return</span> result;
+}
+
+<span class="hljs-keyword">const</span> processDataV2 = <span class="hljs-function">(<span class="hljs-params">csvText</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> csvText
+    .trim()
+    .split(<span class="hljs-string">"\n"</span>)
+    .slice(<span class="hljs-number">1</span>)
+    .map(<span class="hljs-function">(<span class="hljs-params">line</span>) =&gt;</span> line.split(<span class="hljs-string">","</span>))
+    .map(<span class="hljs-function">(<span class="hljs-params">values</span>) =&gt;</span> ({
+      <span class="hljs-attr">username</span>: values[<span class="hljs-number">0</span>],
+      <span class="hljs-attr">realName</span>: values[<span class="hljs-number">1</span>],
+      <span class="hljs-attr">website</span>: values[<span class="hljs-number">2</span>] || <span class="hljs-literal">null</span>,
+      <span class="hljs-attr">projectName</span>: values[<span class="hljs-number">3</span>],
+    }));
+};
+</div></code></pre>
+<p>La première version (<code>processDataV1</code>) utilise une approche impérative avec une boucle for, tandis que la deuxième version (<code>processDataV2</code>) utilise une approche fonctionnelle avec les méthodes de tableau.</p>
+<p>Pour l'exercice 5, nous avons créé une fonction <code>stats</code> qui calcule différentes statistiques sur les données :</p>
+<ul>
+<li>Le premier nom de projet par ordre alphabétique</li>
+<li>Le nombre de contributeurs uniques</li>
+<li>La longueur moyenne des noms</li>
+<li>Le contributeur le plus actif</li>
+<li>Les 10 projets les plus populaires</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">stats</span>(<span class="hljs-params">csvText</span>) </span>{
+  <span class="hljs-keyword">const</span> data = processDataV2(csvText);
+
+  <span class="hljs-keyword">const</span> firstProjectName = [...new <span class="hljs-built_in">Set</span>(data.map(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> d.projectName))].sort(
+    <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> a.localeCompare(b, <span class="hljs-string">"en"</span>, { <span class="hljs-attr">sensitivity</span>: <span class="hljs-string">"base"</span> })
+  )[<span class="hljs-number">0</span>];
+
+  <span class="hljs-keyword">const</span> uniqueContributors = [...new <span class="hljs-built_in">Set</span>(data.map(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> d.realName))].length;
+
+  <span class="hljs-keyword">const</span> uniqueNames = [...new <span class="hljs-built_in">Set</span>(data.map(<span class="hljs-function">(<span class="hljs-params">d</span>) =&gt;</span> d.realName))];
+  <span class="hljs-keyword">const</span> averageNameLength =
+    uniqueNames.reduce(<span class="hljs-function">(<span class="hljs-params">acc, name</span>) =&gt;</span> acc + name.length, <span class="hljs-number">0</span>) /
+    uniqueNames.length;
+
+  <span class="hljs-keyword">const</span> contributorActivity = data.reduce(<span class="hljs-function">(<span class="hljs-params">acc, d</span>) =&gt;</span> {
+    acc[d.username] = (acc[d.username] || <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> acc;
+  }, {});
+  <span class="hljs-keyword">const</span> mostActiveContributor = <span class="hljs-built_in">Object</span>.entries(contributorActivity).sort(
+    <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> b[<span class="hljs-number">1</span>] - a[<span class="hljs-number">1</span>]
+  )[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>];
+
+  <span class="hljs-keyword">const</span> projectContributions = data.reduce(<span class="hljs-function">(<span class="hljs-params">acc, d</span>) =&gt;</span> {
+    acc[d.projectName] = (acc[d.projectName] || <span class="hljs-number">0</span>) + <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> acc;
+  }, {});
+  <span class="hljs-keyword">const</span> top10Projects = <span class="hljs-built_in">Object</span>.entries(projectContributions)
+    .sort(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> b[<span class="hljs-number">1</span>] - a[<span class="hljs-number">1</span>])
+    .slice(<span class="hljs-number">0</span>, <span class="hljs-number">10</span>)
+    .map(<span class="hljs-function">(<span class="hljs-params">[name]</span>) =&gt;</span> name);
+
+  <span class="hljs-keyword">return</span> {
+    firstProjectName,
+    uniqueContributors,
+    averageNameLength,
+    mostActiveContributor,
+    top10Projects,
+  };
+}
+</div></code></pre>
+<p>Nous avons utilisé <code>fetch</code> pour récupérer le fichier CSV à partir de la route <code>/data.csv</code> et calculer les statistiques sur les données.</p>
+<pre class="hljs"><code><div>fetch(<span class="hljs-string">"http://localhost:3000/data.csv"</span>)
+  .then(<span class="hljs-function">(<span class="hljs-params">response</span>) =&gt;</span> response.text())
+  .then(stats)
+  .then(<span class="hljs-built_in">console</span>.log)
+  .catch(<span class="hljs-built_in">console</span>.log);
+</div></code></pre>
+<p>Les tests unitaires ont été écrits avec Mocha et Chai pour vérifier le bon fonctionnement de ces fonctions dans différents scénarios.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { expect } <span class="hljs-keyword">from</span> <span class="hljs-string">"chai"</span>;
+<span class="hljs-keyword">import</span> { processDataV1, processDataV2, stats } <span class="hljs-keyword">from</span> <span class="hljs-string">"../src/exo4-exo5.js"</span>;
+
+<span class="hljs-keyword">const</span> sampleCSV = <span class="hljs-string">`
+username,realName,website,projectName
+alice,Alice Wonderland,www.alice.com,Alpha
+bob,Bob Builder,,Beta
+charlie,Charlie Chaplin,www.charlie.com,Alpha
+dave,David Copperfield,,Gamma
+alice,Alice Wonderland,www.alice.com,Beta
+bob,Bob Builder,,Alpha
+alice,Alice Wonderland,www.alice.com,Alpha
+`</span>;
+
+<span class="hljs-keyword">const</span> expectedData = [
+  {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-attr">realName</span>: <span class="hljs-string">"Alice Wonderland"</span>,
+    <span class="hljs-attr">website</span>: <span class="hljs-string">"www.alice.com"</span>,
+    <span class="hljs-attr">projectName</span>: <span class="hljs-string">"Alpha"</span>,
+  },
+  {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">"bob"</span>,
+    <span class="hljs-attr">realName</span>: <span class="hljs-string">"Bob Builder"</span>,
+    <span class="hljs-attr">website</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">projectName</span>: <span class="hljs-string">"Beta"</span>,
+  },
+  {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">"charlie"</span>,
+    <span class="hljs-attr">realName</span>: <span class="hljs-string">"Charlie Chaplin"</span>,
+    <span class="hljs-attr">website</span>: <span class="hljs-string">"www.charlie.com"</span>,
+    <span class="hljs-attr">projectName</span>: <span class="hljs-string">"Alpha"</span>,
+  },
+  {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">"dave"</span>,
+    <span class="hljs-attr">realName</span>: <span class="hljs-string">"David Copperfield"</span>,
+    <span class="hljs-attr">website</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">projectName</span>: <span class="hljs-string">"Gamma"</span>,
+  },
+  {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-attr">realName</span>: <span class="hljs-string">"Alice Wonderland"</span>,
+    <span class="hljs-attr">website</span>: <span class="hljs-string">"www.alice.com"</span>,
+    <span class="hljs-attr">projectName</span>: <span class="hljs-string">"Beta"</span>,
+  },
+  {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">"bob"</span>,
+    <span class="hljs-attr">realName</span>: <span class="hljs-string">"Bob Builder"</span>,
+    <span class="hljs-attr">website</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">projectName</span>: <span class="hljs-string">"Alpha"</span>,
+  },
+  {
+    <span class="hljs-attr">username</span>: <span class="hljs-string">"alice"</span>,
+    <span class="hljs-attr">realName</span>: <span class="hljs-string">"Alice Wonderland"</span>,
+    <span class="hljs-attr">website</span>: <span class="hljs-string">"www.alice.com"</span>,
+    <span class="hljs-attr">projectName</span>: <span class="hljs-string">"Alpha"</span>,
+  },
+];
+
+describe(<span class="hljs-string">"ex. 4 CSV Parsing"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> implementations = [
+    { <span class="hljs-attr">name</span>: <span class="hljs-string">"processDataV1"</span>, <span class="hljs-attr">func</span>: processDataV1 },
+    { <span class="hljs-attr">name</span>: <span class="hljs-string">"processDataV2"</span>, <span class="hljs-attr">func</span>: processDataV2 },
+  ];
+
+  implementations.forEach(<span class="hljs-function">(<span class="hljs-params">{ name, func }</span>) =&gt;</span> {
+    describe(name, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      it(<span class="hljs-string">"should parse CSV text and return the expected array of objects"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">const</span> result = func(sampleCSV);
+        expect(result).to.deep.equal(expectedData);
+      });
+
+      it(<span class="hljs-string">"should return an empty array when CSV contains only a header row"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+        <span class="hljs-keyword">const</span> headerOnly = <span class="hljs-string">"username,realName,website,projectName"</span>;
+        <span class="hljs-keyword">const</span> result = func(headerOnly);
+        expect(result).to.deep.equal([]);
+      });
+    });
+  });
+});
+
+describe(<span class="hljs-string">"ex. 5 - CSV Stats"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  it(<span class="hljs-string">"should compute statistics correctly for multiple rows"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> result = stats(sampleCSV);
+    expect(result).to.be.an(<span class="hljs-string">"object"</span>);
+    expect(result.firstProjectName).to.equal(<span class="hljs-string">"Alpha"</span>);
+    expect(result.uniqueContributors).to.equal(<span class="hljs-number">4</span>);
+    expect(result.averageNameLength).to.equal(<span class="hljs-number">14.75</span>);
+    expect(result.mostActiveContributor).to.equal(<span class="hljs-string">"alice"</span>);
+    expect(result.top10Projects).to.deep.equal([<span class="hljs-string">"Alpha"</span>, <span class="hljs-string">"Beta"</span>, <span class="hljs-string">"Gamma"</span>]);
+  });
+
+  it(<span class="hljs-string">"should compute correct stats when CSV has only one data row"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> singleRowCSV = <span class="hljs-string">`
+username,realName,website,projectName
+john,John Doe,www.johndoe.com,ProjectX
+    `</span>;
+    <span class="hljs-keyword">const</span> result = stats(singleRowCSV);
+    expect(result.firstProjectName).to.equal(<span class="hljs-string">"ProjectX"</span>);
+    expect(result.uniqueContributors).to.equal(<span class="hljs-number">1</span>);
+    expect(result.averageNameLength).to.equal(<span class="hljs-string">"John Doe"</span>.length);
+    expect(result.mostActiveContributor).to.equal(<span class="hljs-string">"john"</span>);
+    expect(result.top10Projects).to.deep.equal([<span class="hljs-string">"ProjectX"</span>]);
+  });
+});
+</div></code></pre>
+<p><img src="./tests.png" alt="Tests"></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Ce TP nous a permis de nous familiariser avec les bases de JavaScript en utilisant ou en reproduisant les fonctions natives de JavaScript. Nous avons appris à manipuler des tableaux, des objets, des chaînes de caractères, et à écrire des fonctions pour traiter des données CSV. Nous avons également appris à écrire des tests unitaires avec Mocha et Chai pour vérifier le bon fonctionnement de nos fonctions.</p>
+
+</body>
+</html>
