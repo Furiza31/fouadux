@@ -4,17 +4,6 @@
 **Date** : 07-03-2025
 **Sujet** : Développement web
 
-## 1. Objectif
-
-Expliquer ici l'objectif principal du compte rendu.
-Exemple : "Analyser les résultats du TP", "Faire le point sur l'avancement du projet", "Discuter des décisions prises en réunion".
-
-## 2. Contexte et Informations Initiales
-
-Décrire le contexte dans lequel ce compte rendu a été rédigé.
-Exemple : "Ce compte rendu résume les travaux effectués durant le TP sur les circuits électriques."
-Exemple : "Réunion concernant l'organisation du projet X."
-
 ---
 
 ## 3. Exercices
