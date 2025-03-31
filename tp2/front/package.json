@@ -5,11 +5,11 @@
   "main": "src/index.js",
   "scripts": {
     "serve-es6": "http-server -a 127.0.0.1",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "watch": "webpack --watch",
     "test1": "echo \"Error: no test specified\" && exit 1",
     "test2": "standard --fix './src/*.js'",
-    "JsDoc" : "jsdoc './src'"
+    "JsDoc": "jsdoc './src'"
   },
   "author": "Thomas & Youssef",
   "license": "ISC",
