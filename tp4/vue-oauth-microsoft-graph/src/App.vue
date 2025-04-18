@@ -1,13 +1,12 @@
 <script setup>
-import BaseFooter from "./components/BaseFooter.vue";
-import BaseHeader from "./components/BaseHeader.vue";
+import BaseLayout from "./layouts/BaseLayout.vue";
 import HomePage from "./pages/HomePage.vue";
 </script>
 
 <template>
   <main>
-    <BaseHeader />
-    <HomePage />
-    <BaseFooter />
+    <BaseLayout>
+      <HomePage />
+    </BaseLayout>
   </main>
 </template>
