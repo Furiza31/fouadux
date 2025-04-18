@@ -1,5 +1,26 @@
+<script setup>
+import { computed, defineProps } from "vue";
+
+const props = defineProps({
+  color: {
+    type: String,
+    default: "primary",
+    validator: (value) => ["primary", "warn", "danger"].includes(value),
+  },
+});
+
+const buttonClass = computed(() => {
+  return {
+    btn: true,
+    "btn-primary": props.color === "primary",
+    "btn-warn": props.color === "warn",
+    "btn-danger": props.color === "danger",
+  };
+});
+</script>
+
 <template>
-  <button class="btn" v-bind="$attrs">
+  <button :class="buttonClass" v-bind="$attrs">
     <slot />
   </button>
 </template>
@@ -7,9 +28,6 @@
 <style scoped>
 .btn {
   appearance: none;
-  border: none;
-  background: var(--btn-bg, #2563eb);
-  color: var(--btn-fg, #fff);
   font: inherit;
   padding: 0.6em 1.3em;
   border-radius: 0.375rem;
@@ -19,9 +37,25 @@
   align-items: center;
   justify-content: center;
   user-select: none;
+  border: 2px solid black;
 
   transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.18s ease;
+}
+
+.btn-primary {
+  background-color: #2563eb;
+  color: #fff;
+}
+
+.btn-warn {
+  background-color: #f59e0b;
+  color: #fff;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: #fff;
 }
 
 .btn:hover {

@@ -1,14 +1,28 @@
+<script setup>
+import BaseButton from "./BaseButton.vue";
+</script>
+
 <template>
   <header class="base-header">
     <div class="container">
       <div class="header-content">
         <h1 class="app-title">OAuth app</h1>
         <nav class="nav-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
-          <a href="#contact">Contact</a>
-          <a href="#login">Login</a>
+          <BaseButton>
+            <span> Home </span>
+          </BaseButton>
+          <BaseButton>
+            <span>About</span>
+          </BaseButton>
+          <BaseButton>
+            <span>Services</span>
+          </BaseButton>
+          <BaseButton>
+            <span>Contact</span>
+          </BaseButton>
+          <BaseButton>
+            <span>Login</span>
+          </BaseButton>
         </nav>
         <div class="right-section">
           <slot name="right"></slot>
