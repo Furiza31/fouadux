@@ -1,0 +1,26 @@
+{
+  "name": "tp1",
+  "version": "1.0.0",
+  "description": "First tutorial",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "exo1": "node ./src/exo1.js",
+    "exo2": "node ./src/exo2.js",
+    "exo3": "node ./src/exo3.js",
+    "exo4-exo5": "node ./src/exo4-exo5.js",
+    "test": "mocha --timeout 5000 tests-mocha/**/*"
+  },
+  "author": "Thomas & Youssef",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "mocha": "^9.2.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "node-fetch": "^3.2.9"
+  }
+}

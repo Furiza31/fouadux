@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="compte-rendu">Compte Rendu</h1>
+<p><strong>Nom</strong> : Hugo Wendjaneh - Fouad Id Gouahmane - Charles Raymondière
+<strong>Date</strong> : 07-03-2025
+<strong>Sujet</strong> : Développement web</p>
+<h2 id="question-1"><strong>Question 1</strong></h2>
+<blockquote>
+<p><strong>Différence entre installation locale et globale avec npm ?</strong></p>
+</blockquote>
+<ul>
+<li><strong>Locale</strong> (<code>npm install &lt;package&gt;</code> sans <code>-g</code>) : installe dans <code>node_modules/</code> du projet, et enregistre la dépendance dans <code>package.json</code>.
+<ul>
+<li><strong>Usage</strong> : librairies et outils de build spécifiques au projet.</li>
+</ul>
+</li>
+<li><strong>Globale</strong> (<code>npm install -g &lt;package&gt;</code>) : installe dans un dossier partagé système, expose la commande dans le <code>PATH</code>.
+<ul>
+<li><strong>Usage</strong> : CLI utilisables sur tous les projets.</li>
+</ul>
+</li>
+</ul>
+<h2 id="question-2"><strong>Question 2</strong></h2>
+<blockquote>
+<p><strong>Pourquoi Webpack est-il nécessaire pour gérer à la fois plusieurs fichiers JS et les extensions <code>.vue</code> ?</strong></p>
+</blockquote>
+<ul>
+<li><strong>Modules</strong> : regroupe plusieurs fichiers JavaScript modulaires (<code>import</code>/<code>export</code>) en un ou plusieurs fichiers de sortie.</li>
+<li><strong>Loaders / plugins</strong> : transforme les Single File Components (<code>.vue</code>), les fichiers CSS/SCSS, les images...</li>
+<li><strong>Optimisation</strong> : hot-reload, code splitting, tree-shaking, minification, injection de styles scoped…</li>
+</ul>
+<h2 id="question-3"><strong>Question 3</strong></h2>
+<blockquote>
+<p><strong>Rôle de Babel et influence de <code>browserslist</code> sur sa sortie</strong></p>
+</blockquote>
+<ul>
+<li><strong>Babel</strong> : transpileur ESNext vers ES5+ pour assurer la compatibilité navigateurs.</li>
+<li><strong>browserslist</strong> (dans <code>package.json</code>) : définit les cibles (ex. <code>&quot;&gt; 1%&quot;</code>, <code>&quot;last 2 versions&quot;</code>, <code>&quot;not dead&quot;</code>).
+<ul>
+<li>Babel active/désactive des plugins selon les fonctionnalités supportées par ces cibles (ex. <code>async/await</code>, <code>modules</code>).</li>
+</ul>
+</li>
+</ul>
+<h2 id="question-4"><strong>Question 4</strong></h2>
+<blockquote>
+<p><strong>Qu’est-ce qu’ESLint et quelles règles sont appliquées par défaut ?</strong></p>
+</blockquote>
+<ul>
+<li><strong>ESLint</strong> : linter JavaScript permet de détecter les bugs, incohérences de style, mauvaises pratiques.</li>
+<li><strong>Dans Vue CLI</strong> : via <code>@vue/cli-plugin-eslint</code> et le preset par défaut (règles Vue + standard JS).
+<ul>
+<li>Configurable dans <code>.eslintrc.js</code>, active des règles pour Vue (nomenclature, interpolation, directives) et JS (semi, quotes, indentation).</li>
+</ul>
+</li>
+</ul>
+<h2 id="question-5"><strong>Question 5</strong></h2>
+<blockquote>
+<p><strong>Différence entre CSS scoped et non-scoped</strong></p>
+</blockquote>
+<ul>
+<li><strong><code>&lt;style scoped&gt;</code></strong> : Vue génère un attribut unique sur chaque élément du composant, et scope ses règles à ce composant.</li>
+<li><strong>Sans <code>scoped</code></strong> : le style est global tout sélecteur s’applique à tous les éléments correspondants dans l’application. Cela peut aboutir à de potentiels conflits.</li>
+</ul>
+<h2 id="question-6"><strong>Question 6</strong></h2>
+<blockquote>
+<p><strong>Comment se comportent les attributs non-prop passés à un composant à un seul root ?</strong></p>
+</blockquote>
+<ul>
+<li>Par défaut, <strong>tous</strong> les attributs non déclarés en <code>props</code> sont appliqués <strong>automatiquement</strong> à l’élément racine du composant.</li>
+</ul>
+<h2 id="question-7"><strong>Question 7</strong></h2>
+<blockquote>
+<p><strong>Analyse du fonctionnement d’AsyncButton et choix de <code>.finally()</code></strong></p>
+</blockquote>
+<ol>
+<li>Le parent attache <code>@click=&quot;maMéthode&quot;</code> sur <code>&lt;AsyncButton&gt;</code>.</li>
+<li>Vue stocke ce listener dans <code>this.$attrs.onClick</code>.</li>
+<li><code>AsyncButton</code> :
+<ul>
+<li><code>inheritAttrs: false</code>, empêche la propagation automatique.</li>
+<li>Bind manuellement <code>:disabled=&quot;isPending&quot;</code> et <code>@click.stop.prevent=&quot;handleClick&quot;</code>.</li>
+<li>Dans <code>handleClick()</code> :
+<ol>
+<li><code>this.isPending = true</code></li>
+<li>Appel de la Promise d’origine → <code>const p = originalOnClick()</code></li>
+<li><code>p.finally(() =&gt; this.isPending = false)</code></li>
+</ol>
+</li>
+</ul>
+</li>
+<li><strong>Pourquoi <code>.finally()</code></strong> et non <code>.then()</code> :
+<ul>
+<li><code>.finally()</code> s’exécute <strong>toujours</strong>, que la Promise soit résolue ou rejetée, garantissant le retour à l’état &quot;non pending&quot; même en cas d’erreur.</li>
+</ul>
+</li>
+</ol>
+<h2 id="question-8"><strong>Question 8</strong></h2>
+<blockquote>
+<p><strong>Quel bug survient si <code>inheritAttrs: false</code> est absent ou vrai dans AsyncButton ?</strong></p>
+</blockquote>
+<ul>
+<li><strong>Sans <code>inheritAttrs: false</code></strong> :
+<ul>
+<li>Les attributs &quot;non props&quot; (<code>@click</code>, <code>disabled</code>, <code>class</code>, etc.) seraient automatiquement appliqués au <code>&lt;base-button&gt;</code> racine.</li>
+<li><strong>Conséquences</strong> :
+<ul>
+<li>L’écouteur original et le wrapper <code>handleClick</code> seraient tous deux attachés. Cela doublerais l'invocation ou l'ordre d’exécution non contrôlé.</li>
+<li>Le <code>disabled</code> serait peut-être mal géré, brisant la logique de désactivation pendant la Promise.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>En le désactivant, on maîtrise exactement quels attributs et écouteurs sont relayés via <code>v-bind=&quot;$attrs&quot;</code> ou manuellement.</li>
+</ul>
+
+</body>
+</html>
