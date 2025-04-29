@@ -4,30 +4,33 @@
 **Date** : 07-03-2025  
 **Sujet** : Développement web
 
----
-
 ## Question 1 : Pourquoi ne pas committer des credentials dans Git ?
 
-- **Risque de fuite involontaire** : un dépôt Git peut être public, partagé entre plusieurs collaborateurs ou même publié (GitHub, GitLab…). Tous ceux qui cloneraient l’historique pourraient récupérer vos secrets.
-- **Impossible à supprimer complètement** : même si vous retirez un secret d’un commit ultérieur, il reste dans l’historique et peut être récupéré.
-- **Exposition aux attaques** : un attaquant ayant accès à ces credentials (API keys, identifiants OAuth…) peut usurper votre application, lire ou modifier des données sensibles, voire faire des actions en votre nom.
-- **Conformité & audit** : la plupart des réglementations interdisent le stockage de secrets en clair dans un SCM.
-
----
+- **Risque de fuite involontaire** : un dépôt Git peut être public, partagé entre plusieurs collaborateurs ou même publié (GitHub, GitLab…). Tous ceux qui cloneraient l’historique pourraient récupérer les secrets.
+- **Impossible à supprimer complètement** : même si on retire un secret d’un commit ultérieur, il reste dans l’historique et peut être récupéré.
+- **Exposition aux attaques** : un attaquant ayant accès à ces credentials (API keys, identifiants OAuth…) peut usurper l'application, lire ou modifier des données sensibles, voire faire des actions en votre nom.
 
 ## Question 2 : Pourquoi avoir des configurations différentes selon l’environnement ? Donnez un exemple.
 
-- **Séparation des contextes** : on veut différencier _développement_, _test_, _préproduction_ et _production_ (URL d’API, clés OAuth, endpoints, niveaux de log…).
+- **Séparation des contextes** : on veut différencier _développement_, _test_, _préproduction_ et _production_ (URL d’API, clés OAuth, endpoints, base de données, niveaux de log…).
 - **Exemple concret** :
   - En **dev** :
     ```bash
     VUE_APP_API_URL=http://localhost:3000
     VUE_APP_OAUTH_CLIENT_ID=dev-client-id
+    VUE_DATABASE_URL=http://localhost:8080
     ```
   - En **prod** :
     ```bash
     VUE_APP_API_URL=https://api.mondomaine.com
     VUE_APP_OAUTH_CLIENT_ID=prod-client-id
+    VUE_DATABASE_URL=https://db.mondomaine.com
+    ```
+  - En **prod** :
+    ```bash
+    VUE_APP_API_URL=https://api.mondomaine.com
+    VUE_APP_OAUTH_CLIENT_ID=prod-client-id
+    VUE_DATABASE_URL=https://db.mondomaine.com
     ```
   - Ainsi, on pointe vers un serveur local en dev et vers l’API réelle en prod, sans changer le code et sans exposer les credentials de production aux développeurs.
 
@@ -39,7 +42,7 @@
 2. **Boilerplate important** : déclarations répétitives de props, d’événements, de listeners, ce qui alourdit le code.
 3. **Couplage fort** : la structure du component tree conditionne le passage des données, difficile à refactorer.
 4. **Performance** : un changement de prop en haut de l’arbre provoque des re-renderings de tous les composants descendants, même ceux qui n’ont pas besoin de la donnée.
-5. **Suivi du flux de données** : pour comprendre d’où vient une valeur ou où part un événement, il faut remonter tout le chainage props → events.
+5. **Suivi du flux de données** : pour comprendre d’où vient une valeur ou où part un événement, il faut remonter tout le chainage props -> events.
 
 ---
 
@@ -58,8 +61,6 @@
 | **Props & Events**       | – Aucune dépendance externe<br>– Flux de données explicite                      | – Prop drilling<br>– Boilerplate<br>– Coupure difficile en profondeur                                 |
 | **Provide & Inject**     | – Évite le prop drilling<br>– Très simple à mettre en place                     | – Injection peu explicite (moindre lisibilité)<br>– Non réactif si mal utilisé                        |
 | **Store (Vuex / Pinia)** | – État global centralisé et réactif<br>– Devtools dédiés<br>– Modules / plugins | – Configuration initiale<br>– Boilerplate pour mutations/actions<br>– Couplage fort à la bibliothèque |
-
-> **Remarque** : on peut aussi envisager la **Composition API** (composables) ou même le **Context API** (dans Vue 3) pour des cas intermédiaires.
 
 ---
 

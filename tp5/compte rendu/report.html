@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>report.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="compte-rendu">Compte Rendu</h1>
+<p><strong>Nom</strong> : Hugo Wendjaneh – Fouad Id Gouahmane – Charles Raymondière<br>
+<strong>Date</strong> : 07-03-2025<br>
+<strong>Sujet</strong> : Développement web</p>
+<h2 id="question-1--pourquoi-ne-pas-committer-des-credentials-dans-git">Question 1 : Pourquoi ne pas committer des credentials dans Git ?</h2>
+<ul>
+<li><strong>Risque de fuite involontaire</strong> : un dépôt Git peut être public, partagé entre plusieurs collaborateurs ou même publié (GitHub, GitLab…). Tous ceux qui cloneraient l’historique pourraient récupérer les secrets.</li>
+<li><strong>Impossible à supprimer complètement</strong> : même si on retire un secret d’un commit ultérieur, il reste dans l’historique et peut être récupéré.</li>
+<li><strong>Exposition aux attaques</strong> : un attaquant ayant accès à ces credentials (API keys, identifiants OAuth…) peut usurper l'application, lire ou modifier des données sensibles, voire faire des actions en votre nom.</li>
+</ul>
+<h2 id="question-2--pourquoi-avoir-des-configurations-diff%C3%A9rentes-selon-lenvironnement--donnez-un-exemple">Question 2 : Pourquoi avoir des configurations différentes selon l’environnement ? Donnez un exemple.</h2>
+<ul>
+<li><strong>Séparation des contextes</strong> : on veut différencier <em>développement</em>, <em>test</em>, <em>préproduction</em> et <em>production</em> (URL d’API, clés OAuth, endpoints, base de données, niveaux de log…).</li>
+<li><strong>Exemple concret</strong> :
+<ul>
+<li>En <strong>dev</strong> :<pre class="hljs"><code><div>VUE_APP_API_URL=http://localhost:3000
+VUE_APP_OAUTH_CLIENT_ID=dev-client-id
+VUE_DATABASE_URL=http://localhost:8080
+</div></code></pre>
+</li>
+<li>En <strong>prod</strong> :<pre class="hljs"><code><div>VUE_APP_API_URL=https://api.mondomaine.com
+VUE_APP_OAUTH_CLIENT_ID=prod-client-id
+VUE_DATABASE_URL=https://db.mondomaine.com
+</div></code></pre>
+</li>
+<li>En <strong>prod</strong> :<pre class="hljs"><code><div>VUE_APP_API_URL=https://api.mondomaine.com
+VUE_APP_OAUTH_CLIENT_ID=prod-client-id
+VUE_DATABASE_URL=https://db.mondomaine.com
+</div></code></pre>
+</li>
+<li>Ainsi, on pointe vers un serveur local en dev et vers l’API réelle en prod, sans changer le code et sans exposer les credentials de production aux développeurs.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="question-3--probl%C3%A8mes-de-maintenabilit%C3%A9-avec-props--events">Question 3 : Problèmes de maintenabilité avec props &amp; events</h2>
+<ol>
+<li><strong>Prop drilling</strong> : chaque composant intermédiaire doit déclarer et transmettre une prop qu’il n’utilise pas lui-même.</li>
+<li><strong>Boilerplate important</strong> : déclarations répétitives de props, d’événements, de listeners, ce qui alourdit le code.</li>
+<li><strong>Couplage fort</strong> : la structure du component tree conditionne le passage des données, difficile à refactorer.</li>
+<li><strong>Performance</strong> : un changement de prop en haut de l’arbre provoque des re-renderings de tous les composants descendants, même ceux qui n’ont pas besoin de la donnée.</li>
+<li><strong>Suivi du flux de données</strong> : pour comprendre d’où vient une valeur ou où part un événement, il faut remonter tout le chainage props -&gt; events.</li>
+</ol>
+<hr>
+<h2 id="question-4--quel-est-le-bug-si-linject-nest-pas-r%C3%A9actif">Question 4 : Quel est le bug si l’inject n’est pas réactif ?</h2>
+<ul>
+<li>Par défaut, <code>provide()</code> injecte une référence statique : si la valeur fournie change, les composants enfants ne sont <strong>pas</strong> notifiés et ne se rerendent pas.</li>
+<li><strong>Conséquence pratique</strong> : après authentification, le store <code>user</code> mis à jour dans le composant parent n’est pas propagé aux consommateurs injectés.</li>
+<li><strong>Solution</strong> : fournir un objet <code>reactive({ … })</code> ou un <code>ref</code> via <code>provide('user', reactive(...))</code>, ou exposer un setter pour déclencher la réactivité.</li>
+</ul>
+<hr>
+<h2 id="question-5--comparaison-des-strat%C3%A9gies-de-gestion-d%C3%A9tat">Question 5 : Comparaison des stratégies de gestion d’état</h2>
+<table>
+<thead>
+<tr>
+<th>Stratégie</th>
+<th>Avantages</th>
+<th>Inconvénients</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Props &amp; Events</strong></td>
+<td>– Aucune dépendance externe<br>– Flux de données explicite</td>
+<td>– Prop drilling<br>– Boilerplate<br>– Coupure difficile en profondeur</td>
+</tr>
+<tr>
+<td><strong>Provide &amp; Inject</strong></td>
+<td>– Évite le prop drilling<br>– Très simple à mettre en place</td>
+<td>– Injection peu explicite (moindre lisibilité)<br>– Non réactif si mal utilisé</td>
+</tr>
+<tr>
+<td><strong>Store (Vuex / Pinia)</strong></td>
+<td>– État global centralisé et réactif<br>– Devtools dédiés<br>– Modules / plugins</td>
+<td>– Configuration initiale<br>– Boilerplate pour mutations/actions<br>– Couplage fort à la bibliothèque</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="question-6--faut-il-g%C3%A9rer-tout-l%C3%A9tat-exclusivement-avec-un-store">Question 6 : Faut-il gérer tout l’état exclusivement avec un store ?</h2>
+<ul>
+<li><strong>Arguments pour</strong>
+<ul>
+<li>Simplification du partage d’état global (pas de prop drilling).</li>
+<li>Outils de débogage et de time-travel (devtools Vuex/Pinia).</li>
+</ul>
+</li>
+<li><strong>Arguments contre</strong>
+<ul>
+<li><strong>Surcharge inutile</strong> pour de petits états locaux (formulaires, UI éphémère).</li>
+<li>Perte d’<strong>encapsulation</strong> et de <strong>prévisibilité</strong> de certains composants (ils deviennent moins « autonomes »).</li>
+<li>Couplage fort à une bibliothèque externe, complexité pour l’onboarding.</li>
+</ul>
+</li>
+<li><strong>Position équilibrée</strong> :
+<ul>
+<li>Utiliser un store pour l’état <strong>vraiment global</strong> et partagé par de multiples parties de l’app.</li>
+<li>Conserver props/events ou provide/inject pour les états plus locaux ou liés à une fonctionnalité restreinte.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="question-7--diff%C3%A9rence-de-performance-entre-a-href%22conversations%22a-et-router-link-to%22conversations%22router-link">Question 7 : Différence de performance entre <code>&lt;a href=&quot;/conversations&quot;&gt;…&lt;/a&gt;</code> et <code>&lt;router-link to=&quot;/conversations&quot;&gt;…&lt;/router-link&gt;</code></h2>
+<table>
+<thead>
+<tr>
+<th>Lien HTML natif (<code>&lt;a&gt;</code>)</th>
+<th><code>&lt;router-link&gt;</code> (vue-router)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>• <strong>Full page reload</strong></td>
+<td>• <strong>Navigation client-side</strong> (pas de rechargement complet)</td>
+</tr>
+<tr>
+<td>• Requête HTTP vers le serveur</td>
+<td>• Utilise History API, vue-router gère la route en mémoire</td>
+</tr>
+<tr>
+<td>• Plus lent et coûteux en ressources</td>
+<td>• Très rapide, conserve l’état JS, animations, transition fluide</td>
+</tr>
+<tr>
+<td>• Moins intégré à l’écosystème SPA</td>
+<td>• Permet styles actifs, guards, lazy-loading des composants</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="grandes-%C3%A9tapes-du-tp">Grandes étapes du TP</h2>
+<h3 id="%C3%A9tape-1-%E2%80%93-homepage-avant-authentification">Étape 1 – HomePage avant authentification</h3>
+<p><img src="./1.png" alt="HomePage non-authentifiée"></p>
+<h3 id="%C3%A9tape-2-%E2%80%93-popup-oauth-pick-an-account">Étape 2 – Popup OAuth “Pick an account”</h3>
+<p><img src="./5.png" alt="Sélection du compte Microsoft"></p>
+<h3 id="%C3%A9tape-3-%E2%80%93-homepage-apr%C3%A8s-authentification">Étape 3 – HomePage après authentification</h3>
+<p><img src="./2.png" alt="HomePage avec bouton “Se déconnecter”"></p>
+<h3 id="%C3%A9tape-4-%E2%80%93-liste-des-conversations-r%C3%A9centes">Étape 4 – Liste des conversations récentes</h3>
+<p><img src="./3.png" alt="Affichage des dernières conversations"></p>
+<h3 id="%C3%A9tape-5-%E2%80%93-d%C3%A9tail-dune-conversation">Étape 5 – Détail d’une conversation</h3>
+<p><img src="./4.png" alt="Détail d’une conversation (route )"></p>
+
+</body>
+</html>
