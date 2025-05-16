@@ -1,0 +1,43 @@
+{
+  "name": "klm-api",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.ts",
+    "prisma:migrate": "npx prisma migrate dev",
+    "prisma:generate": "npx prisma generate",
+    "prisma:studio": "npx prisma studio",
+    "prisma:push": "npx prisma db push",
+    "prisma:setup": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:push"
+  },
+  "author": "Furiza31",
+  "license": "ISC",
+  "repository": "https://github.com/Furiza31/klm.git",
+  "description": "API for KLM",
+  "dependencies": {
+    "@auth/core": "^0.39.0",
+    "@auth/express": "^0.10.0",
+    "@auth/prisma-adapter": "^2.9.0",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^4.21.2",
+    "express-validator": "^7.1.0",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "ts-node-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "@prisma/client": "^6.7.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.14.10",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.4",
+    "prisma": "^6.7.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
