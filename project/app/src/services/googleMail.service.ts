@@ -11,28 +11,11 @@ class GoogleMailService implements MailService {
     };
   }
 
-  private encodeMessage(to: string, subject: string, body: string): string {
-    const lines = [
-      `To: ${to}`,
-      `Subject: ${subject}`,
-      `Content-Type: text/plain; charset="UTF-8"`,
-      ``,
-      body,
-    ];
-    const message = lines.join("\r\n");
-
-    return btoa(message)
-      .replace(/\+/g, "-")
-      .replace(/\//g, "_")
-      .replace(/=+$/, "");
-  }
-
   async sendMail(user: User, mail: MailForm): Promise<void> {
-    const raw = this.encodeMessage(mail.to, mail.subject, mail.body);
     const res = await fetch(`${GMAIL_ENDPOINT}/users/me/messages/send`, {
       method: "POST",
       headers: this.getHeaders(user.token),
-      body: JSON.stringify({ raw }),
+      body: JSON.stringify({ mail }),
     });
     if (!res.ok) {
       const text = await res.text();
