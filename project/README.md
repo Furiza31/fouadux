@@ -33,9 +33,12 @@ MailCollab est une application web de gestion de boîte mail collaborative. Elle
 - npm >= 9
 
 ### 2. Cloner le dépôt
+
+**URL du dépôt GitHub :** [https://github.com/Furiza31/fouadux.git](https://github.com/Furiza31/fouadux.git)
+
 ```bash
-git clone <url-du-repo>
-cd <nom-du-dossier>
+git clone https://github.com/Furiza31/fouadux.git
+cd fouadux/project
 ```
 
 ### 3. Installation des dépendances
@@ -116,3 +119,7 @@ Le frontend sera accessible par défaut sur [http://localhost:5173](http://local
 - Hugo
 - Fouad
 - Charles
+
+---
+
+**Dépôt GitHub du projet :** [https://github.com/Furiza31/fouadux.git](https://github.com/Furiza31/fouadux.git)
