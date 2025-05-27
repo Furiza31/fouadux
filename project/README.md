@@ -1,5 +1,7 @@
 # MailCollab - Boîte Mail Collaborative
 
+🚀 **Déployé sur Cloudflare Pages : [https://mailcollab.pages.dev](https://mailcollab.pages.dev)**
+
 Projet réalisé par **Hugo**, **Fouad** et **Charles** dans le cadre du module de Développement Web à l'EFREI.
 
 ---
