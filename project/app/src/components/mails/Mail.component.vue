@@ -20,7 +20,7 @@ const router = useRouter();
 
 const emits = defineEmits(["on-delete"]);
 
-const onDelete = (id: number) => {
+const onDelete = (id: string) => {
   emits("on-delete", id);
 };
 </script>
@@ -73,7 +73,14 @@ const onDelete = (id: number) => {
           </AccordionTrigger>
           <AccordionContent class="px-4 py-6 border-t">
             <div class="mail-body prose max-w-none">
-              <p>{{ props.mail.body }}</p>
+              <div class="flex flex-row justify-center items-center">
+                <iframe
+                  class="w-full h-[500px] border-0"
+                  sandbox="allow-same-origin"
+                  :srcdoc="props.mail.body"
+                  frameborder="0"
+                ></iframe>
+              </div>
             </div>
           </AccordionContent>
         </AccordionItem>

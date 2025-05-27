@@ -35,7 +35,7 @@ import { Card, CardContent } from "@/components/ui/card";
         </div>
         <div class="text-center text-sm mt-4">
           Already have an account?
-          <Button variant="link" class="w-fit p-0 text-blue-500">
+          <Button variant="link" class="w-fit p-0 h-fit text-blue-500">
             <RouterLink to="/login"> Sign in </RouterLink>
           </Button>
         </div>

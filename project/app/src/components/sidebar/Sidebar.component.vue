@@ -13,8 +13,11 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { LogOut } from "lucide-vue-next";
+import { useUserStore } from "@/stores/user.store";
+import { LoaderCircle, LogOut } from "lucide-vue-next";
 import { RouterLink } from "vue-router";
+
+const userStore = useUserStore();
 </script>
 
 <template>
@@ -23,7 +26,7 @@ import { RouterLink } from "vue-router";
       <SidebarHeader class="pb-0">
         <SidebarMenu>
           <SidebarMenuItem>
-            <h1>👋 NOM</h1>
+            <h1 class="w-full text-center">{{ userStore.user?.email }}</h1>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
@@ -46,8 +49,17 @@ import { RouterLink } from "vue-router";
     <SidebarFooter>
       <SidebarMenu>
         <SidebarMenuItem>
-          <Button variant="destructive" class="w-full justify-start">
-            <LogOut class="mr-2" />
+          <Button
+            variant="destructive"
+            class="w-full justify-start"
+            @click="userStore.logout"
+            :disabled="userStore.loading"
+          >
+            <LoaderCircle
+              class="size-6 bg-destructive-foreground animate-spin mr-2"
+              v-if="userStore.loading"
+            />
+            <LogOut class="mr-2 bg-destructive-foreground" v-else />
             Logout
           </Button>
         </SidebarMenuItem>

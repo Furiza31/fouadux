@@ -51,7 +51,7 @@ const mailsToDisplay = computed<Mail[]>(() => {
 
 const emits = defineEmits(["on-delete"]);
 
-const onDelete = (id: number) => {
+const onDelete = (id: string) => {
   emits("on-delete", id);
 };
 </script>

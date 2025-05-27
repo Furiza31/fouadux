@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MailComponent from "@/components/mails/Mail.component.vue";
 import { Button } from "@/components/ui/button";
-import { useMailsService } from "@/services/mails.service";
+import { useUserStore } from "@/stores/user.store";
 import type { Mail } from "@/types/mail";
 import { LoaderCircle } from "lucide-vue-next";
 import { onMounted, ref } from "vue";
@@ -9,22 +9,23 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const router = useRouter();
-const mailsService = useMailsService();
+const userStore = useUserStore();
 const mail = ref<Mail | null>(null);
 const loading = ref(true);
 const error = ref<string | null>(null);
+const mailsService = userStore.getMailService();
 
 onMounted(async () => {
-  const mailId = parseInt(route.params.id as string, 10);
-  if (isNaN(mailId)) {
+  const mailId = route.params.id as string;
+  if (!mailId) {
     error.value = "Invalid mail ID";
     loading.value = false;
     return;
   }
 
   try {
-    const response = await mailsService.getMailById(mailId);
-    mail.value = response.data;
+    const response = await mailsService.getMail(userStore.user!, mailId);
+    mail.value = response;
   } catch (err) {
     error.value = "Failed to fetch mail";
     console.error("Failed to fetch mail:", err);
