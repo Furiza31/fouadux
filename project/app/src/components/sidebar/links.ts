@@ -1,4 +1,4 @@
-import { Flame, Home, Mail } from "lucide-vue-next";
+import { Home, Mail } from "lucide-vue-next";
 
 export const links = [
   {
@@ -10,10 +10,5 @@ export const links = [
     title: "Mails",
     url: "/app/mails",
     icon: Mail,
-  },
-  {
-    title: "Carbon Emissions",
-    url: "/app/carbon-emissions",
-    icon: Flame,
   },
 ];

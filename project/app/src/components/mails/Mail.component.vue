@@ -63,7 +63,9 @@ const onDelete = (id: string) => {
                 </div>
                 <div class="text-left">
                   <p class="font-medium">{{ props.mail.sender }}</p>
-                  <p class="text-sm text-muted-foreground">to me</p>
+                  <p class="text-sm text-muted-foreground">
+                    {{ props.mail.to }}
+                  </p>
                 </div>
               </div>
               <div class="text-sm text-muted-foreground">

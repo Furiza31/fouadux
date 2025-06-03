@@ -23,6 +23,10 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
+const props = defineProps<{
+  loading?: boolean;
+}>();
+
 const emits = defineEmits(["submit"]);
 
 const form = useForm({
@@ -96,7 +100,10 @@ const onSubmit = form.handleSubmit((values: MailForm) => {
         </CardContent>
         <CardFooter>
           <div class="flex justify-end mt-4 w-full">
-            <Button type="submit">Send</Button>
+            <Button type="submit">
+              <span v-if="!props.loading">Send Mail</span>
+              <span v-else>Sending...</span>
+            </Button>
             <Button variant="destructive" class="ml-2" @click="router.back()">
               Cancel
             </Button>

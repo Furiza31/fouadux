@@ -1,42 +1,27 @@
-import { ExpressAuth } from "@auth/express";
+import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import express, { Express } from "express";
-import { authOptions } from "./authConfig";
-import routes from "./routes/index";
-import bodyParser = require("body-parser");
+import "dotenv/config";
+import express from "express";
 
-console.log("🚀 Starting server 🚀");
+import env from "./lib/env";
+import loggerMiddleware from "./middlewares/logger";
+import routes from "./routes";
 
 dotenv.config();
 
-const app: Express = express();
-export const port = process.env.PORT || 3000;
-console.log("🛣️ Loading routes 🛣️");
-const allRoutes = routes();
-
-console.log("🔧 Setting up server 🔧");
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
-  next();
-});
+const app = express();
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
+app.use(cors());
+app.use(loggerMiddleware);
+app.use("/api", routes);
+
+app
+  .listen(env.PORT, () => {
+    console.log(`Server is running on http://localhost:${env.PORT}`);
   })
-);
-app.set("trust proxy", true);
-app.use("/oauth/*", ExpressAuth(authOptions));
-allRoutes.forEach((route) => app.use(route));
-
-console.log("✅ Server setup complete ✅");
-
-app.listen(port, () => {
-  console.log(
-    `⚡️ [server]: Server is running at http://localhost:${port} ⚡️`
-  );
-});
+  .on("error", (error) => {
+    throw new Error(error.message);
+  });

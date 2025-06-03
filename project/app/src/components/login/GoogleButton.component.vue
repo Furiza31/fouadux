@@ -2,8 +2,8 @@
 import { Button } from "@/components/ui/button";
 import { getUserInformations, googleRequestedScopes } from "@/lib/googleAuth";
 import { useUserStore } from "@/stores/user.store";
-import type { User } from "@/types/user";
 import { LoaderCircle } from "lucide-vue-next";
+import { toast } from "vue-sonner";
 import {
   useTokenClient,
   type AuthCodeFlowErrorResponse,
@@ -13,16 +13,20 @@ import {
 const handleOnSuccess = async (response: AuthCodeFlowSuccessResponse) => {
   userStore.loading = false;
   const userInfo = await getUserInformations({ token: response.access_token });
-  const user: User = {
+  userStore.googleLogin({
     email: userInfo.email,
     token: response.access_token,
+    expireAt: new Date(
+      new Date().getTime() + Number(response.expires_in) * 1000
+    ),
+    uuid: userInfo.sub,
     provider: "google",
-  };
-  userStore.googleLogin(user);
+  });
 };
 
 const handleOnError = (_: AuthCodeFlowErrorResponse) => {
   userStore.loading = false;
+  toast.error("Failed to log in with Google. Please try again.");
 };
 
 const userStore = useUserStore();
@@ -39,8 +43,10 @@ const wrapper = () => {
   try {
     login();
   } catch (error) {
-    userStore.loading = false;
     console.error("Error logging in:", error);
+    toast.error("Failed to log in with Google. Please try again.");
+  } finally {
+    userStore.loading = false;
   }
 };
 </script>
@@ -48,7 +54,7 @@ const wrapper = () => {
 <template>
   <Button
     variant="outline"
-    :disabled="userStore.loading && !isReady"
+    :disabled="userStore.loading || !isReady"
     class="w-full"
     @click="wrapper"
   >

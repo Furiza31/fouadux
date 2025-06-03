@@ -61,14 +61,6 @@ export const routes: Array<RouteRecordRaw> = [
           auth: true,
         },
       },
-      {
-        path: "carbon-emissions",
-        name: "Carbon emissions",
-        component: () => import("@/pages/CarbonEmissions.page.vue"),
-        meta: {
-          auth: true,
-        },
-      },
     ],
   },
 ];

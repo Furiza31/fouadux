@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1748602102508,
+      "tag": "0000_milky_harpoon",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1748602388039,
+      "tag": "0001_flat_dexter_bennett",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1748621833110,
+      "tag": "0002_nostalgic_morg",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1748903908784,
+      "tag": "0003_clammy_the_initiative",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1748983190086,
+      "tag": "0004_past_dragon_man",
+      "breakpoints": true
+    }
+  ]
+}

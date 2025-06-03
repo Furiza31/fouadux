@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import MailComponent from "@/components/mails/Mail.component.vue";
 import { Button } from "@/components/ui/button";
-import { useUserStore } from "@/stores/user.store";
+import { useApiService } from "@/services/api.service";
 import type { Mail } from "@/types/mail";
 import { LoaderCircle } from "lucide-vue-next";
 import { onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { toast } from "vue-sonner";
 
 const route = useRoute();
 const router = useRouter();
-const userStore = useUserStore();
 const mail = ref<Mail | null>(null);
 const loading = ref(true);
 const error = ref<string | null>(null);
-const mailsService = userStore.getMailService();
 
 onMounted(async () => {
   const mailId = route.params.id as string;
@@ -24,8 +23,11 @@ onMounted(async () => {
   }
 
   try {
-    const response = await mailsService.getMail(userStore.user!, mailId);
-    mail.value = response;
+    const response = await useApiService().get<Mail>(`/mails/${mailId}`);
+    mail.value = response.data || null;
+    if (!mail.value) {
+      error.value = "Mail not found";
+    }
   } catch (err) {
     error.value = "Failed to fetch mail";
     console.error("Failed to fetch mail:", err);
@@ -34,8 +36,14 @@ onMounted(async () => {
   }
 });
 
-const onDelete = (id: number) => {
-  console.log("Delete mail with id:", id);
+const onDelete = async (id: number) => {
+  try {
+    await useApiService().delete(`/mails/${id}`);
+    toast.success("Mail deleted successfully");
+    router.push({ path: "/app/mails" });
+  } catch (error) {
+    toast.error("Failed to delete mail");
+  }
 };
 </script>
 

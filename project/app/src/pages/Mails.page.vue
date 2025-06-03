@@ -1,30 +1,29 @@
 <script lang="ts" setup>
 import MailsListComponent from "@/components/mails/MailsList.component.vue";
 import { Button } from "@/components/ui/button";
-import { useUserStore } from "@/stores/user.store";
+import { useApiService } from "@/services/api.service";
 import type { Mail } from "@/types/mail";
 import { ChevronLeft, ChevronRight, LoaderCircle, Plus } from "lucide-vue-next";
-import { onMounted, ref } from "vue";
-import { RouterLink, useRouter } from "vue-router";
+import { onMounted, ref, watch } from "vue";
+import { RouterLink, useRoute, useRouter } from "vue-router";
+import { toast } from "vue-sonner";
 const mails = ref<Mail[]>([]);
 const loading = ref(false);
 const error = ref<string | null>(null);
 const router = useRouter();
-const userStore = useUserStore();
-const mailService = userStore.getMailService();
-const page = ref(1);
 const canGoNext = ref(true);
+const route = useRoute();
+const page = ref(route.query.page ? Number(route.query.page) : 1);
 
 const loadMails = async (pageNumber: number) => {
   loading.value = true;
   error.value = null;
   try {
-    const fetchedMails = await mailService.getMails(
-      userStore.user!,
-      pageNumber
+    const fetchedMails = await useApiService().get<Mail[]>(
+      "/mails?page=" + pageNumber
     );
-    mails.value = fetchedMails;
-    canGoNext.value = fetchedMails.length > 0;
+    mails.value = fetchedMails.data || [];
+    canGoNext.value = fetchedMails.data.length > 0;
   } catch (err) {
     console.error("Error fetching emails:", err);
     error.value = "Failed to fetch emails";
@@ -36,14 +35,14 @@ const loadMails = async (pageNumber: number) => {
 const goToPreviousPage = async () => {
   if (page.value > 1) {
     page.value--;
-    await loadMails(page.value);
+    router.push({ path: "/app/mails", query: { page: page.value } });
   }
 };
 
 const goToNextPage = async () => {
   if (canGoNext.value) {
     page.value++;
-    await loadMails(page.value);
+    router.push({ path: "/app/mails", query: { page: page.value } });
   }
 };
 
@@ -51,8 +50,24 @@ onMounted(async () => {
   await loadMails(page.value);
 });
 
-const onDelete = (id: string) => {
-  console.log("Delete mail with id:", id);
+watch(
+  () => route.query.page,
+  (newPage, oldPage) => {
+    if (newPage !== oldPage) {
+      page.value = Number(newPage);
+      loadMails(page.value);
+    }
+  }
+);
+
+const onDelete = async (id: string) => {
+  try {
+    await useApiService().delete(`/mails/${id}`);
+    toast.success(`Mail deleted successfully`);
+    mails.value = mails.value.filter((mail) => mail.id !== id);
+  } catch (error) {
+    toast.error("Failed to delete mail");
+  }
 };
 </script>
 
@@ -95,7 +110,19 @@ const onDelete = (id: string) => {
           <ChevronRight class="h-4 w-4" />
         </Button>
       </div>
-      <MailsListComponent :mails="mails" v-on:on-delete="onDelete" />
+      <MailsListComponent
+        :mails="mails"
+        v-if="mails.length > 0"
+        @on-delete="onDelete"
+      />
+      <div
+        v-if="mails.length <= 0"
+        class="flex justify-center items-center h-full w-full"
+      >
+        <p class="text-center text-muted-foreground">
+          Empty inbox. Start by sending a new mail!
+        </p>
+      </div>
       <Button
         size="icon"
         class="rounded-md fixed bottom-4 right-4 size-11"

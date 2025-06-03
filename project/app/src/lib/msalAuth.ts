@@ -1,4 +1,3 @@
-import type { User } from "@/types/user";
 import * as msal from "@azure/msal-browser";
 
 export const requestedScopes = {
@@ -17,7 +16,13 @@ const msalInstance = new msal.PublicClientApplication({
 
 msalInstance.initialize();
 
-export const login = async (): Promise<User> => {
+export const login = async (): Promise<{
+  email: string;
+  token: string;
+  provider: "microsoft";
+  uuid: string;
+  expireAt: Date;
+}> => {
   const authResult = await msalInstance.loginPopup(requestedScopes);
   msalInstance.setActiveAccount(authResult.account);
   const token = await getAccessToken();
@@ -25,6 +30,8 @@ export const login = async (): Promise<User> => {
     email: authResult.account.username,
     token,
     provider: "microsoft",
+    uuid: authResult.account.homeAccountId,
+    expireAt: new Date(authResult.expiresOn!),
   };
 };
 
